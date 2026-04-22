@@ -113,23 +113,37 @@ SKIP_START=1 ./scripts/deploy_web_console.sh
 ./.venv/bin/akshare-web --host 127.0.0.1 --port 8000
 ```
 
-单独启动 MCP Server：
+单独启动 MCP Server 时，可以使用两种模式：
+
+1. `stdio`
+2. `streamable-http`
+
+`stdio` 模式：
 
 ```shell
 ./.venv/bin/akshare-mcp --transport stdio
 ```
 
-或使用 Streamable HTTP 方式启动 MCP：
+`streamable-http` 模式：
 
 ```shell
 ./.venv/bin/akshare-mcp --transport streamable-http --host 127.0.0.1 --port 8001
 ```
 
-将 HTTP MCP Server 接入支持 MCP 的客户端时，可使用：
+如果你使用 Web 服务挂载出来的 MCP 端点，可通过：
 
 ```shell
 claude mcp add --transport http akshare http://127.0.0.1:8000/mcp/
 ```
+
+如果你使用独立的 Streamable HTTP MCP，则对应地址是：
+
+```text
+http://127.0.0.1:8001/mcp
+```
+
+更完整的 MCP 接入说明见：
+[docs/http_console.md](docs/http_console.md)
 
 ### Data
 

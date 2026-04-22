@@ -92,6 +92,119 @@
 }
 ```
 
+## MCP 接入方式
+
+本项目支持 3 种 MCP 接入方式：
+
+1. 挂载在 Web 服务中的 HTTP MCP
+2. 独立启动的 Streamable HTTP MCP
+3. 独立启动的 stdio MCP
+
+### 方式一：使用 Web 服务自带的 MCP 端点
+
+启动 Web 服务：
+
+```bash
+./.venv/bin/akshare-web --host 127.0.0.1 --port 8000
+```
+
+启动后：
+
+1. Dashboard 地址：`http://127.0.0.1:8000`
+2. MCP 地址：`http://127.0.0.1:8000/mcp/`
+
+这种方式最适合本地统一部署，一个进程同时提供：
+
+1. React Dashboard
+2. HTTP API
+3. MCP Server
+
+命令行方式接入支持 MCP 的客户端：
+
+```bash
+claude mcp add --transport http akshare http://127.0.0.1:8000/mcp/
+```
+
+### 方式二：单独启动 Streamable HTTP MCP
+
+如果你不需要 Dashboard 和 HTTP API，只想单独暴露 MCP：
+
+```bash
+./.venv/bin/akshare-mcp --transport streamable-http --host 127.0.0.1 --port 8001
+```
+
+此时 MCP 地址为：
+
+```text
+http://127.0.0.1:8001/mcp
+```
+
+命令行方式接入：
+
+```bash
+claude mcp add --transport http akshare http://127.0.0.1:8001/mcp
+```
+
+### 方式三：单独启动 stdio MCP
+
+如果你的 MCP 客户端更适合直接拉起本地进程，可以使用 stdio：
+
+```bash
+./.venv/bin/akshare-mcp --transport stdio
+```
+
+这种方式没有 HTTP 地址，而是由 MCP 客户端直接启动命令行进程。
+
+一个典型的 stdio 配置可以抽象成：
+
+1. command: `./.venv/bin/akshare-mcp`
+2. args: `["--transport", "stdio"]`
+3. cwd: 仓库根目录
+
+### 应该选哪一种
+
+优先推荐顺序：
+
+1. 如果你已经要使用 Dashboard，直接使用 Web 服务自带的 `http://127.0.0.1:8000/mcp/`
+2. 如果你只需要网络方式暴露 MCP，使用独立的 Streamable HTTP MCP
+3. 如果客户端偏向本地进程拉起模式，使用 stdio
+
+### MCP 中可用的工具
+
+接入成功后，客户端可以使用两类能力：
+
+1. 辅助工具
+   `akshare_health`、`akshare_search_functions`、`akshare_get_function`、`akshare_execute`
+2. 动态工具
+   所有公开导出的 AKShare 函数都会按原函数名注册为 MCP Tool
+
+例如：
+
+1. `stock_zh_a_hist`
+2. `bond_info_cm`
+3. `spot_price_qh`
+
+### 返回结果特点
+
+为了避免 MCP 客户端一次性接收超大表格，所有工具返回的都是结构化预览结果：
+
+1. DataFrame / Series 会返回预览行
+2. 列表和字典会返回 JSON 结构
+3. 所有动态工具都支持 `preview_rows` 参数控制结果规模
+
+例如调用某个动态工具时，可以附带：
+
+```json
+{
+  "symbol": "000001",
+  "period": "daily",
+  "start_date": "20240101",
+  "end_date": "20240201",
+  "adjust": "",
+  "preview_rows": 50
+}
+```
+
 ## 一键部署
 
 ```bash
