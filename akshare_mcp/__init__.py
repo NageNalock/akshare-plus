@@ -1,0 +1,4 @@
+"""
+AKShare MCP server package.
+"""
+

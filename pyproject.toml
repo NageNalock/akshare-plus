@@ -61,6 +61,13 @@ dependencies = [
 [project.optional-dependencies]
 full = ["akqmt"]
 qmt = ["akqmt"]
+web = [
+    "fastapi>=0.115.0",
+    "uvicorn>=0.30.0",
+]
+mcp = [
+    "mcp[cli]>=1.27.0",
+]
 dev = [
     "akqmt>=0.1.0",
     "commitizen>=4.12.1; python_version >= '3.10'",
@@ -77,14 +84,19 @@ dev = [
 [project.urls]
 Homepage = "https://github.com/akfamily/akshare"
 
+[project.scripts]
+akshare-web = "akshare_web.main:main"
+akshare-mcp = "akshare_mcp.main:main"
+
 [tool.setuptools.dynamic]
 version = {attr = "akshare._version.__version__"}
 
 [tool.setuptools.packages.find]
-include = ["akshare*"]
+include = ["akshare*", "akshare_web*", "akshare_mcp*"]
 
 [tool.setuptools.package-data]
 "*" = ["*.py", "*.json", "*.pk", "*.js", "*.zip"]
+"akshare_web" = ["static/**/*"]
 
 [tool.ruff]
 # Exclude a variety of commonly ignored directories.

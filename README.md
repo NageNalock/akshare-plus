@@ -75,6 +75,50 @@ print(ak.__version__)
 
 ## Usage
 
+### Web Console & MCP
+
+仓库现在内置了一个基于 React 的现代化控制台，以及一个 MCP Server：
+
+- React Web Console: 浏览全部公开接口、自动生成参数表单、直接查看结构化结果
+- HTTP API: `GET /api/functions`、`GET /api/functions/{name}`、`POST /api/functions/{name}/execute`
+- MCP Endpoint: `http://127.0.0.1:8000/mcp/`
+
+一键部署并启动：
+
+```shell
+./scripts/deploy_web_console.sh
+```
+
+如果只想完成依赖安装和前端构建、不立即启动服务：
+
+```shell
+SKIP_START=1 ./scripts/deploy_web_console.sh
+```
+
+手动启动 Web Console：
+
+```shell
+./.venv/bin/akshare-web --host 127.0.0.1 --port 8000
+```
+
+单独启动 MCP Server：
+
+```shell
+./.venv/bin/akshare-mcp --transport stdio
+```
+
+或使用 Streamable HTTP 方式启动 MCP：
+
+```shell
+./.venv/bin/akshare-mcp --transport streamable-http --host 127.0.0.1 --port 8001
+```
+
+将 HTTP MCP Server 接入支持 MCP 的客户端时，可使用：
+
+```shell
+claude mcp add --transport http akshare http://127.0.0.1:8000/mcp/
+```
+
 ### Data
 
 Code:
@@ -156,6 +200,7 @@ Output:
 5. Based on some uncontrollable factors, some data interfaces in [AKShare](https://github.com/akfamily/akshare) may be removed;
 6. Please follow the relevant open-source protocol used by [AKShare](https://github.com/akfamily/akshare);
 7. Provide HTTP API for the person who uses other program language: [AKTools](https://aktools.readthedocs.io/).
+8. This repository now also ships a built-in React Web Console and MCP server for local deployment.
 
 ## Show your style
 
