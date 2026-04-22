@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "akshare"
 dynamic = ["version"]
-description = "AKShare is an elegant and simple financial data interface library for Python, built for human beings!"
+description = "AKShare Plus extends AKShare with a built-in React dashboard, HTTP API, and MCP server for local financial data exploration and automation."
 readme = "README.md"
 requires-python = ">=3.9"
 license = {text = "MIT"}
@@ -82,7 +82,7 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/akfamily/akshare"
+Homepage = "https://github.com/NageNalock/akshare-plus"
 
 [project.scripts]
 akshare-web = "akshare_web.main:main"

@@ -1,3 +1,11 @@
+# AKShare Plus
+
+> AKShare Plus extends AKShare with a built-in React dashboard, HTTP API, and MCP server for local financial data exploration and automation.
+
+AKShare Plus 是基于 [AKShare](https://github.com/akfamily/akshare) 的增强版发行项目：
+保留原有 `import akshare as ak` 的财经数据接口能力，并新增可本地部署的
+React Dashboard、HTTP API 与 MCP Server，方便在浏览器界面、脚本服务和支持 MCP 的 AI 客户端中直接调用全量 AKShare 能力。
+
 **资源分享**：对于想了解更多财经数据与量化投研的小伙伴，推荐一个专注于财经数据和量化研究的知识社区。
 该社区提供相关文档和视频学习资源，汇集了各类财经数据源和量化投研工具的使用经验。
 有兴趣深入学习的朋友可点此[了解更多](https://t.zsxq.com/ZCxUG)，也推荐大家关注微信公众号【数据科学实战】。
@@ -8,76 +16,80 @@
 **工具推荐**：期魔方是一款本地化期货量化分析工具，适合数据分析爱好者使用。无需复杂部署，支持数据分析和机器学习功能，研究功能免费开放。
 如需了解更多信息可访问[期魔方](https://qmfquant.com)。
 
-![AKShare Logo](https://github.com/akfamily/akshare/blob/main/assets/images/akshare_logo.jpg)
+![AKShare Logo](assets/images/akshare_logo.jpg)
 
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/akshare.svg)](https://pypi.org/project/akshare/)
-[![PyPI](https://img.shields.io/pypi/v/akshare.svg)](https://pypi.org/project/akshare/)
-[![PyPI Downloads](https://static.pepy.tech/personalized-badge/akshare?period=total&units=INTERNATIONAL_SYSTEM&left_color=BLACK&right_color=GREEN&left_text=downloads)](https://pepy.tech/projects/akshare)
-[![Documentation Status](https://readthedocs.org/projects/akshare/badge/?version=latest)](https://akshare.readthedocs.io/?badge=latest)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
-[![akshare](https://img.shields.io/badge/Data%20Science-AKShare-green)](https://github.com/akfamily/akshare)
-[![Actions Status](https://github.com/akfamily/akshare/actions/workflows/release_and_deploy.yml/badge.svg)](https://github.com/akfamily/akshare/actions)
-[![MIT Licence](https://img.shields.io/badge/license-MIT-blue)](https://github.com/akfamily/akshare/blob/main/LICENSE)
-[![](https://img.shields.io/github/forks/jindaxiang/akshare)](https://github.com/akfamily/akshare)
-[![](https://img.shields.io/github/stars/jindaxiang/akshare)](https://github.com/akfamily/akshare)
-[![](https://img.shields.io/github/issues/jindaxiang/akshare)](https://github.com/akfamily/akshare)
+[![akshare-plus](https://img.shields.io/badge/Data%20Science-AKShare%20Plus-green)](https://github.com/NageNalock/akshare-plus)
+[![Actions Status](https://github.com/NageNalock/akshare-plus/actions/workflows/release_and_deploy.yml/badge.svg)](https://github.com/NageNalock/akshare-plus/actions)
+[![MIT Licence](https://img.shields.io/badge/license-MIT-blue)](https://github.com/NageNalock/akshare-plus/blob/main/LICENSE)
+[![](https://img.shields.io/github/forks/NageNalock/akshare-plus)](https://github.com/NageNalock/akshare-plus)
+[![](https://img.shields.io/github/stars/NageNalock/akshare-plus)](https://github.com/NageNalock/akshare-plus)
+[![](https://img.shields.io/github/issues/NageNalock/akshare-plus)](https://github.com/NageNalock/akshare-plus)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 ## Overview
 
-[AKShare](https://github.com/akfamily/akshare) requires Python(64 bit) 3.9 or higher and
-aims to simplify the process of fetching financial data.
+[AKShare Plus](https://github.com/NageNalock/akshare-plus) requires Python(64 bit) 3.9 or higher.
+It keeps the original AKShare data interface surface while making local exploration and integration much easier.
 
-**Write less, get more!**
+**Write less, integrate more!**
 
-- Documentation: [中文文档](https://akshare.akfamily.xyz/)
+- Keep the familiar AKShare Python API
+- Browse and execute functions from a built-in React dashboard
+- Expose AKShare through HTTP endpoints for local services
+- Connect the same capability set to MCP-compatible clients
+- AKShare Plus setup notes: [docs/http_console.md](docs/http_console.md)
+- Legacy AKShare docs: [akshare.akfamily.xyz](https://akshare.akfamily.xyz/)
+- Original AKShare README: [akfamily/akshare README](https://github.com/akfamily/akshare/blob/main/README.md)
 
 ## Installation
 
-### General
+### Recommended for AKShare Plus
+
+```shell
+git clone https://github.com/NageNalock/akshare-plus.git
+cd akshare-plus
+python -m venv .venv
+source .venv/bin/activate
+pip install --upgrade pip
+pip install -e ".[web,mcp]"
+```
+
+如果你希望一次性完成依赖安装、前端构建并启动本地服务，直接执行：
+
+```shell
+./scripts/deploy_web_console.sh
+```
+
+如果只想安装核心包而不带 Web / MCP 能力，可以执行：
+
+```shell
+pip install -e .
+```
+
+### Only Need Original AKShare?
+
+如果你只想安装 upstream AKShare，而不是这个带 Dashboard / HTTP / MCP 的增强版 fork，请参考旧文档：
+
+- 原始 README: [https://github.com/akfamily/akshare/blob/main/README.md](https://github.com/akfamily/akshare/blob/main/README.md)
+- 官方文档: [https://akshare.akfamily.xyz/](https://akshare.akfamily.xyz/)
+
+对应的安装命令仍然是：
 
 ```shell
 pip install akshare --upgrade
 ```
 
-### China
-
-```shell
-pip install akshare -i http://mirrors.aliyun.com/pypi/simple/ --trusted-host=mirrors.aliyun.com  --upgrade
-```
-
-### PR
-
-Please check out [Documentation](https://akshare.akfamily.xyz/contributing.html) if you
-want to contribute to AKShare
-
 ### Docker
 
-#### Pull images
-
-```shell
-docker pull registry.cn-shanghai.aliyuncs.com/akfamily/aktools:jupyter
-```
-
-#### Run Container
-
-```shell
-docker run -it registry.cn-shanghai.aliyuncs.com/akfamily/aktools:jupyter python
-```
-
-#### Test
-
-```python
-import akshare as ak
-
-print(ak.__version__)
-```
+当前仓库没有单独维护 `akshare-plus` 的预构建 Docker 镜像，推荐直接使用本仓库的一键部署脚本或本地虚拟环境方式运行。
+如果你需要 upstream AKShare/AKTools 的容器镜像，请参考旧 README。
 
 ## Usage
 
 ### Web Console & MCP
 
-仓库现在内置了一个基于 React 的现代化控制台，以及一个 MCP Server：
+AKShare Plus 的核心增强能力，是在原有 AKShare 接口之上内置了一套可本地部署的控制台与服务层：
 
 - React Web Console: 浏览全部公开接口、自动生成参数表单、直接查看结构化结果
 - HTTP API: `GET /api/functions`、`GET /api/functions/{name}`、`POST /api/functions/{name}/execute`
@@ -168,75 +180,82 @@ Output:
 
 ## Features
 
-- **Easy of use**: Just one line code to fetch the data;
-- **Extensible**: Easy to customize your own code with other application;
-- **Powerful**: Python ecosystem.
+- **AKShare compatible**: 继续使用熟悉的 `import akshare as ak` 接口调用方式；
+- **Dashboard ready**: 自带 React 控制台，可搜索函数、填写参数并查看结构化结果；
+- **Service friendly**: 提供本地 HTTP API 和 MCP Server，便于接入自动化系统与 AI 客户端；
+- **Python native**: 保持原有 Python 生态兼容性，适合脚本、研究和服务化部署。
 
-## Tutorials
+## Legacy AKShare References
 
-1. [Overview](https://akshare.akfamily.xyz/introduction.html)
-2. [Installation](https://akshare.akfamily.xyz/installation.html)
-3. [Tutorial](https://akshare.akfamily.xyz/tutorial.html)
-4. [Data Dict](https://akshare.akfamily.xyz/data/index.html)
-5. [Subjects](https://akshare.akfamily.xyz/topic/index.html)
+如果你要查阅原始 AKShare 的大而全数据文档，请使用这些旧入口：
+
+1. [Original README](https://github.com/akfamily/akshare/blob/main/README.md)
+2. [Overview](https://akshare.akfamily.xyz/introduction.html)
+3. [Installation](https://akshare.akfamily.xyz/installation.html)
+4. [Tutorial](https://akshare.akfamily.xyz/tutorial.html)
+5. [Data Dict](https://akshare.akfamily.xyz/data/index.html)
+6. [Subjects](https://akshare.akfamily.xyz/topic/index.html)
 
 ## Contribution
 
-[AKShare](https://github.com/akfamily/akshare) is still under developing, feel free to open issues and pull requests:
+欢迎为 [AKShare Plus](https://github.com/NageNalock/akshare-plus) 提交 issue 和 pull request。
+这个 fork 主要关注三类改进：
 
-- Report or fix bugs
-- Require or publish interface
-- Write or fix documentation
-- Add test cases
+- AKShare 原有接口的本地可用性与兼容性
+- React Dashboard / HTTP API / MCP 集成体验
+- 文档、测试和部署脚本的可维护性
 
 > Notice: We use [Ruff](https://github.com/astral-sh/ruff) to format the code
 
 ## Statement
 
-1. All data provided by [AKShare](https://github.com/akfamily/akshare) is just for academic research purpose;
-2. The data provided by [AKShare](https://github.com/akfamily/akshare) is for reference only and does not constitute any investment proposal;
-3. Any investor based on [AKShare](https://github.com/akfamily/akshare) research should pay more attention to data risk;
-4. [AKShare](https://github.com/akfamily/akshare) will insist on providing open-source financial data;
-5. Based on some uncontrollable factors, some data interfaces in [AKShare](https://github.com/akfamily/akshare) may be removed;
-6. Please follow the relevant open-source protocol used by [AKShare](https://github.com/akfamily/akshare);
-7. Provide HTTP API for the person who uses other program language: [AKTools](https://aktools.readthedocs.io/).
-8. This repository now also ships a built-in React Web Console and MCP server for local deployment.
+1. AKShare Plus 基于开源财经数据接口能力构建，数据仅供学习、研究与开发测试使用；
+2. 仓库内提供的任何数据访问能力都不构成投资建议，使用者需自行承担数据质量与使用风险；
+3. 上游数据源、网页结构或访问策略变化时，部分接口可能失效、变更或被移除；
+4. AKShare Plus 在保留原始 AKShare Python 接口兼容性的同时，额外提供了本地 Dashboard、HTTP API 与 MCP Server；
+5. 如需查阅原始 AKShare 的官方说明、安装方式与完整数据文档，请参考旧 README 和旧文档站点：
+   [README](https://github.com/akfamily/akshare/blob/main/README.md) /
+   [Docs](https://akshare.akfamily.xyz/)
 
 ## Show your style
 
 Use the badge in your project's README.md:
 
 ```markdown
-[![Data: akshare](https://img.shields.io/badge/Data%20Science-AKShare-green)](https://github.com/akfamily/akshare)
+[![Data: akshare-plus](https://img.shields.io/badge/Data%20Science-AKShare%20Plus-green)](https://github.com/NageNalock/akshare-plus)
 ```
 
 Using the badge in README.rst:
 
 ```
-.. image:: https://img.shields.io/badge/Data%20Science-AKShare-green
-    :target: https://github.com/akfamily/akshare
+.. image:: https://img.shields.io/badge/Data%20Science-AKShare%20Plus-green
+    :target: https://github.com/NageNalock/akshare-plus
 ```
 
 Looks like this:
 
-[![Data: akshare](https://img.shields.io/badge/Data%20Science-AKShare-green)](https://github.com/akfamily/akshare)
+[![Data: akshare-plus](https://img.shields.io/badge/Data%20Science-AKShare%20Plus-green)](https://github.com/NageNalock/akshare-plus)
 
 ## Citation
 
 Please use this **bibtex** if you want to cite this repository in your publications:
 
 ```markdown
-@misc{akshare,
-    author = {Albert King and Yaojie Zhang},
-    title = {AKShare},
-    year = {2022},
+@misc{akshare_plus,
+    author = {AKShare Plus Contributors},
+    title = {AKShare Plus},
+    year = {2026},
     publisher = {GitHub},
     journal = {GitHub repository},
-    howpublished = {\url{https://github.com/akfamily/akshare}},
+    howpublished = {\url{https://github.com/NageNalock/akshare-plus}},
 }
 ```
 
 ## Acknowledgement
+
+AKShare Plus is built on top of the original [AKShare](https://github.com/akfamily/akshare) project.
+For the original project introduction and historical README, please see:
+[https://github.com/akfamily/akshare/blob/main/README.md](https://github.com/akfamily/akshare/blob/main/README.md)
 
 Special thanks [FuShare](https://github.com/LowinLi/fushare) for the opportunity of learning from the project;
 
